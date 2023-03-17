@@ -1,9 +1,13 @@
-﻿namespace ManejoImpresoras.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ManejoImpresoras.Models
 {
     public class Institucion
     {
-            public int Id { get; set; }
-            public string Nombre { get; set; }
-            public string Descripcion { get; set; }
+        public int IdInstitucion { get; set; }
+        [Required(ErrorMessage = "El campo {0} es requerido")]
+        public String Nombre { get; set; }
+
+        public String Descripcion { get; set; }
     }
 }

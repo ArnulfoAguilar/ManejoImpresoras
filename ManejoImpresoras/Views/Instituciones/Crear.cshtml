@@ -8,12 +8,18 @@
 <h1>Crear Institución</h1>
 <h5>Se refiere a las instituciones propietarias de los equipos de impresión </h5>
 
-    @*<form asp-controller="Instituciones" asp-action="Crear">   *@
-    <form asp-action="Crear">
+    @*<form asp-action="Crear">   *@
+    <form  asp-controller="Instituciones" asp-action="Crear">
     <div class="mb-3">
         <label asp-for="Nombre" class="form-label">Nombre</label>
         <input type="text" asp-for="Nombre" class="form-control" />
         <span asp-validation-for="Nombre" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Descripcion" class="form-label">Descripcion</label>
+        <input type="text" asp-for="Descripcion" class="form-control" />
+        <span asp-validation-for="Descripcion" class="text-danger"></span>
     </div>
     
     <button type="submit" class="btn btn-primary">Enviar</button>
@@ -49,7 +55,6 @@
 
     </form>
     *@
-
 
 </form>
 

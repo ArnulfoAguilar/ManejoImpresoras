@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Institucion>
+
+@{
+    ViewData["Title"] = "Listado Instituciones";
+}
+<h1>Instituciónes</h1>
+<h5>Se muestran todas las instituciones relacionadas a los impresores y sus suministros.</h5>
+
+<a asp-action="Crear" class="btn btn-primary" mb-3>Crear nueva</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Acciones</th>
+            <th>Nombres</th>
+        </tr>
+    </thead>
+        <tbody>
+            @foreach (var institucion in Model)
+            { <!-- Items -->
+                <tr>
+                    <td>
+                        <a class="btn btn-primary" asp-action="Editar" >Editar</a>
+                        <a class="btn btn-danger" asp-action="Borrar" >Borrar</a>
+                    </td>
+                    <td>
+                        @institucion.Nombre
+                    </td>
+                </tr>
+            }
+        </tbody>
+</table>

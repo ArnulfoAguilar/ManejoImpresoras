@@ -13,6 +13,12 @@ namespace ManejoImpresoras.Controllers
             this.repositorioInstituciones = repositorioInstituciones;
         }
 
+        public async Task<IActionResult> Index() 
+        {
+            var instituciones = await repositorioInstituciones.Obtener();
+            return View(instituciones);
+        }
+
         public IActionResult Crear()
         {
             return View();
@@ -39,7 +45,7 @@ namespace ManejoImpresoras.Controllers
 
             await repositorioInstituciones.Crear(institucion);
 
-            return View();
+            return RedirectToAction("Index");
 
         }
 

@@ -8,6 +8,7 @@ namespace ManejoImpresoras.Servicios
     {
         Task Crear(Institucion institucion);
         Task<bool> Existe(string nombre);
+        Task<IEnumerable<Institucion>> Obtener();
     }
     public class RepositorioInstituciones : IRepositorioInstituciones  
     {
@@ -33,15 +34,18 @@ namespace ManejoImpresoras.Servicios
 
         public async Task<bool> Existe(string nombre) 
         {
-            bool existeBool = true;
             using var connection = new SqlConnection(connectionString);
             var query = @"select 1 from Institucion where Nombre = @Nombre;";
             var existe = await connection.QueryFirstOrDefaultAsync<int>(query, new { nombre });  
 
-            if (existe == 0) 
-            { existeBool = false; }
+            return existe == 1;  
+        }
 
-            return existeBool;  
+        public async Task<IEnumerable<Institucion>> Obtener() 
+        {
+            using var connection = new SqlConnection(connectionString);
+            var query = @"select * from Institucion;";
+            return await connection.QueryAsync<Institucion>(query);
         }
     }
     

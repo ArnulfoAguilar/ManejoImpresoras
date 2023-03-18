@@ -20,21 +20,44 @@ namespace ManejoImpresoras.Controllers
 
         [HttpPost]
 
-        public IActionResult Crear(Institucion institucion)
+        public async Task<IActionResult> Crear(Institucion institucion)
         {
             if (!ModelState.IsValid)
             {
                 return View(institucion);
             }
 
-            repositorioInstituciones.Crear(institucion);
+            var yaExisteInstitucion = await repositorioInstituciones.Existe(institucion.Nombre);
+
+            if (yaExisteInstitucion) 
+            {
+                ModelState.AddModelError(nameof(institucion.Nombre), $"El nombre {institucion.Nombre} ya existe.");
+
+                return View(institucion);
+
+            }  
+
+            await repositorioInstituciones.Crear(institucion);
 
             return View();
 
         }
 
+        [HttpGet]
 
-
+        public async Task<IActionResult> VerificarExisteInstitucion(string nombre)
+        {
+            var yaExisteInstitucion = await repositorioInstituciones.Existe(nombre);
+            if (yaExisteInstitucion)
+            {
+                return Json($"El nombre {nombre} ya existe.");
+            }
+            else 
+            {
+                return Json(true);
+            }
+            
+        }
         /*
                  private readonly string connectionString;
 

@@ -6,7 +6,8 @@ namespace ManejoImpresoras.Servicios
 {
     public interface IRepositorioInstituciones
     {
-        void Crear(Institucion institucion);
+        Task Crear(Institucion institucion);
+        Task<bool> Existe(string nombre);
     }
     public class RepositorioInstituciones : IRepositorioInstituciones  
     {
@@ -17,17 +18,30 @@ namespace ManejoImpresoras.Servicios
             connectionString = configuration.GetConnectionString("DefaultConnection");
         }
 
-        public void Crear(Institucion institucion) 
+        public async Task Crear(Institucion institucion) 
         {
             using var connection = new SqlConnection(connectionString);
             // connection.Open();  
             var query = @"insert into Institucion (Nombre, Descripcion) values (@Nombre, @Descripcion); 
                             Select SCOPE_IDENTITY();";
                             
-            var id = connection.QuerySingle<int>(query, institucion);   //Execute
+            var id = await connection.QuerySingleAsync<int>(query, institucion);   //Execute
 
             institucion.IdInstitucion = id;
 
+        }
+
+        public async Task<bool> Existe(string nombre) 
+        {
+            bool existeBool = true;
+            using var connection = new SqlConnection(connectionString);
+            var query = @"select 1 from Institucion where Nombre = @Nombre;";
+            var existe = await connection.QueryFirstOrDefaultAsync<int>(query, new { nombre });  
+
+            if (existe == 0) 
+            { existeBool = false; }
+
+            return existeBool;  
         }
     }
     

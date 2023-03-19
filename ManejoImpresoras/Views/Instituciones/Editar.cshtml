@@ -1,14 +1,17 @@
 ﻿@model Institucion 
 
 @{
-    ViewData["Title"] = "Crear Institución";
+    ViewData["Title"] = "Editar Institución";
 }
 
 
-<h1>Crear Institución</h1>
-<h5>Se refiere a las instituciones propietarias de los equipos de impresión </h5>
+<h1>Editar Institución: @Model.Nombre</h1>
 
-    <form asp-action="Crear" asp-controller="Instituciones" asp-action="Crear">
+
+    <form asp-action="Editar" asp-controller="Instituciones" >
+
+    <input type="hidden" asp-for="IdInstitucion" />
+
     <div class="mb-3">
         <label asp-for="Nombre" class="form-label">Nombre</label>
         <input type="text" asp-for="Nombre" class="form-control" />
@@ -25,10 +28,3 @@
     <a class="btn btn-secondary" asp-action="Index">Cancelar</a>
 
 </form>
-
-@*
-@section Scripts {
-    <partial name="_Validation Script Partial" />
-}
-*@
-

@@ -18,6 +18,11 @@ namespace ManejoImpresoras.Controllers
             return View();
         }
 
+        public IActionResult NoEncontrado()
+        {
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();

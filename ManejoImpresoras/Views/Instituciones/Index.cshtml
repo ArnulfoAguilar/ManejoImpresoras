@@ -20,11 +20,11 @@
             { <!-- Items -->
                 <tr>
                     <td>
-                        <a class="btn btn-primary" asp-action="Editar" >Editar</a>
+                        <a class="btn btn-primary" asp-action="Editar" asp-route-id="@institucion.IdInstitucion">Editar</a>
                         <a class="btn btn-danger" asp-action="Borrar" >Borrar</a>
                     </td>
                     <td>
-                        @institucion.Nombre
+                        @institucion.Nombre  , @institucion.IdInstitucion
                     </td>
                 </tr>
             }

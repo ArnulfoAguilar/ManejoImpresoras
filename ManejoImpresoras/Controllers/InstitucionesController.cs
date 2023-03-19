@@ -51,6 +51,34 @@ namespace ManejoImpresoras.Controllers
 
         [HttpGet]
 
+        public async Task<IActionResult> Editar(int idInstitucion)
+        {
+            var institucion = await repositorioInstituciones.ObtenerPorId(idInstitucion);
+            if (institucion == null)
+            {
+                return RedirectToAction("No encontrado","Home");
+            }
+
+            return View(institucion);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Editar(Institucion institucion) 
+        {
+            var institucionExiste = await repositorioInstituciones.ObtenerPorId(institucion.IdInstitucion);
+            
+            if (institucionExiste == null)
+            {
+                return RedirectToAction("No encontrado", "Home");
+            }
+
+            await repositorioInstituciones.Actualizar(institucion);
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+
         public async Task<IActionResult> VerificarExisteInstitucion(string nombre)
         {
             var yaExisteInstitucion = await repositorioInstituciones.Existe(nombre);

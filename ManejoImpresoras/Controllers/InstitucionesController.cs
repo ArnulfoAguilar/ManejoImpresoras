@@ -53,6 +53,10 @@ namespace ManejoImpresoras.Controllers
 
         public async Task<IActionResult> Editar(int idInstitucion)
         {
+            var tempo = idInstitucion;
+            if (tempo == 0)
+                idInstitucion = 1;  
+
             var institucion = await repositorioInstituciones.ObtenerPorId(idInstitucion);
             if (institucion == null)
             {
@@ -63,13 +67,14 @@ namespace ManejoImpresoras.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Editar(Institucion institucion) 
+        public async Task<IActionResult> Editar(Institucion institucion) //* ActionResult
         {
+            var tempo = institucion.IdInstitucion;
             var institucionExiste = await repositorioInstituciones.ObtenerPorId(institucion.IdInstitucion);
             
-            if (institucionExiste == null)
+            if (institucionExiste is null)
             {
-                return RedirectToAction("No encontrado", "Home");
+                return RedirectToAction("Noencontrado", "Home");
             }
 
             await repositorioInstituciones.Actualizar(institucion);

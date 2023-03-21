@@ -54,21 +54,22 @@ namespace ManejoImpresoras.Servicios
         {
             using var connection = new SqlConnection(connectionString);
             // connection.Open();  
-            var query = @"Update Institucion 
+            var query = $@"Update Institucion 
                 set Nombre = @Nombre, Descripcion = @Descripcion
                 where IdInstitucion = @IdInstitucion;";
 
             await connection.ExecuteAsync(query, institucion);
         }
 
-        public async Task<Institucion> ObtenerPorId(int idIdInstitucion)
+        public async Task<Institucion> ObtenerPorId(int idInstitucion)
         {
+            var tempo = idInstitucion;
             using var connection = new SqlConnection(connectionString);
             // connection.Open();  
-            var query = @"Select Nombre, Descripcion from Institucion
+            var query = $@"Select IdInstitucion, Nombre, Descripcion from Institucion
                                 where IdInstitucion =  @IdInstitucion;";
 
-           return await connection.QueryFirstOrDefaultAsync(query, new { idIdInstitucion });
+           return await connection.QueryFirstOrDefaultAsync<Institucion>(query, new { idInstitucion });
         }
     }
 }

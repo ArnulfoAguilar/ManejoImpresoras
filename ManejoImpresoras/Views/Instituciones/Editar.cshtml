@@ -4,11 +4,11 @@
     ViewData["Title"] = "Editar Institución";
 }
 
+<h1>Editar Institución: @Model.Nombre  -> IdInstitucion: @Model.IdInstitucion</h1>
 
-<h1>Editar Institución: @Model.Nombre</h1>
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-
-    <form asp-action="Editar" asp-controller="Instituciones" >
+    <form asp-action="Editar">     @*  asp-controller="Instituciones" *@
 
     <input type="hidden" asp-for="IdInstitucion" />
 

@@ -1,0 +1,15 @@
+﻿@model Institucion 
+
+@{
+    ViewData["Title"] = "Borrar Institución";
+}
+
+
+<h3>Estás seguro de Borrar la Institución: @Model.Nombre ?</h3>
+
+<form asp-action="BorrarInstitucion">
+    <input type="hidden" asp-for="IdInstitucion" />
+    <button type="submit" class="btn btn-danger">Borrar</button>
+    <a class="btn btn-secondary" asp-action="Index">Cancelar</a>
+
+</form>

@@ -20,8 +20,8 @@
             { <!-- Items -->
                 <tr>
                     <td>
-                        <a class="btn btn-primary" asp-action="Editar" asp-route-id="@institucion.IdInstitucion">Editar -> @institucion.IdInstitucion</a>
-                        <a class="btn btn-danger"  asp-action="Borrar" >Borrar</a>
+                        <a class="btn btn-primary" value="Editar" asp-controller="Instituciones"  asp-action="Editar" asp-route-IdInstitucion="@institucion.IdInstitucion">Editar -> @institucion.IdInstitucion</a>
+                        <a class="btn btn-danger"  value="Borrar" asp-action="Borrar" asp-route-IdInstitucion="@institucion.IdInstitucion">Borrar -> @institucion.IdInstitucion</a>
                     </td>
                     <td>
                         @institucion.Nombre  -> @institucion.IdInstitucion

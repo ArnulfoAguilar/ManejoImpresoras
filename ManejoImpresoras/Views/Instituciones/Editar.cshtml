@@ -8,9 +8,9 @@
 
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-    <form asp-action="Editar">     @*  asp-controller="Instituciones" *@
+    <form asp-action="Editar" asp-controller="Instituciones" >
 
-    <input type="hidden" asp-for="IdInstitucion" />
+    <input type="hidden" asp-for="IdInstitucion" value="@Model.IdInstitucion" class="Institucion"/>
 
     <div class="mb-3">
         <label asp-for="Nombre" class="form-label">Nombre</label>

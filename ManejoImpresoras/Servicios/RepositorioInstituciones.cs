@@ -11,6 +11,7 @@ namespace ManejoImpresoras.Servicios
         Task<bool> Existe(string nombre);
         Task<IEnumerable<Institucion>> Obtener();
         Task<Institucion> ObtenerPorId(int idIdInstitucion);
+        Task Borrar(int idInstitucion);
     }
     public class RepositorioInstituciones : IRepositorioInstituciones
     {
@@ -70,6 +71,16 @@ namespace ManejoImpresoras.Servicios
                                 where IdInstitucion =  @IdInstitucion;";
 
            return await connection.QueryFirstOrDefaultAsync<Institucion>(query, new { idInstitucion });
+        }
+
+        public async Task Borrar(int idInstitucion) 
+        {
+            using var connection = new SqlConnection(connectionString);
+            // connection.Open();  
+            var query = $@"Delete from Institucion  Where IdInstitucion  = @IdInstitucion;";
+
+            await connection.ExecuteAsync(query, new { idInstitucion });
+
         }
     }
 }

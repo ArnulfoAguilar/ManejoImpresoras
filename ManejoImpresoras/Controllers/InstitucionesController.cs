@@ -50,7 +50,6 @@ namespace ManejoImpresoras.Controllers
         }
 
         [HttpGet]
-
         public async Task<IActionResult> Editar(int idInstitucion)
         {
             var tempo = idInstitucion;
@@ -60,7 +59,7 @@ namespace ManejoImpresoras.Controllers
             var institucion = await repositorioInstituciones.ObtenerPorId(idInstitucion);
             if (institucion == null)
             {
-                return RedirectToAction("No encontrado","Home");
+                return RedirectToAction("Noencontrado","Home");
             }
 
             return View(institucion);
@@ -69,7 +68,7 @@ namespace ManejoImpresoras.Controllers
         [HttpPost]
         public async Task<IActionResult> Editar(Institucion institucion) //* ActionResult
         {
-            var tempo = institucion.IdInstitucion;
+
             var institucionExiste = await repositorioInstituciones.ObtenerPorId(institucion.IdInstitucion);
             
             if (institucionExiste is null)
@@ -80,6 +79,37 @@ namespace ManejoImpresoras.Controllers
             await repositorioInstituciones.Actualizar(institucion);
 
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Borrar(int idInstitucion) //* ActionResult
+        {
+            var institucion = await repositorioInstituciones.ObtenerPorId(idInstitucion);
+
+            if (institucion is null)
+            {
+                return RedirectToAction("Noencontrado", "Home");
+            }
+
+            await repositorioInstituciones.Actualizar(institucion);
+
+            return View(institucion);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> BorrarInstitucion(int idInstitucion) 
+        {
+            var institucion = await repositorioInstituciones.ObtenerPorId(idInstitucion);
+
+            if (institucion is null)
+            {
+                return RedirectToAction("Noencontrado", "Home");
+            }
+
+            await repositorioInstituciones.Borrar(idInstitucion);
+
+            return RedirectToAction("Index");
+
         }
 
         [HttpGet]
@@ -97,29 +127,7 @@ namespace ManejoImpresoras.Controllers
             }
             
         }
-        /*
-                 private readonly string connectionString;
-
-                public InstitucionesController(IConfiguration configuration)
-                {
-                    connectionString = configuration.GetConnectionString("DefaultConnection");
-                }
-        */
-        /*
-                  public IActionResult Crear()
-                  {
-                      using (var connection = new SqlConnection(connectionString))
-
-                      {
-
-                          var query = connection.Query("SELECT 1").FirstOrDefault();
-
-                      }
-                      return View();
-
-                  }
-
-           */
+  
     }
 }
     

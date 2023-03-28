@@ -8,7 +8,7 @@
         public string NumeroRegistro { get; set; }
         public string Email  { get; set; }
         public string PasswordHash { get; set; }
-        public string IdInstitucion { get; set; }
+        public int IdInstitucion { get; set; }
 
     }
 }

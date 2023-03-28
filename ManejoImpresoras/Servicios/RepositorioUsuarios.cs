@@ -37,11 +37,11 @@ namespace ManejoImpresoras.Servicios
             return await connection.QuerySingleOrDefaultAsync<Usuario>(query, new { email });
         }
 
-        public async Task<Usuario> BuscaUsuarioPorNombre(String nombre)
+        public async Task<Usuario> BuscaUsuarioPorNombre(String nombres)
         {
             using var connection = new SqlConnection(connectionString);
-            var query = @"Select * from usuario where Nombres = @Nombres;";
-            return await connection.QuerySingleOrDefaultAsync<Usuario>(query, new { nombre });
+            var query = @"Select * from usuario where upper(Nombres) = @Nombres;";
+            return await connection.QuerySingleOrDefaultAsync<Usuario>(query, new { nombres });
         }
     }
 }

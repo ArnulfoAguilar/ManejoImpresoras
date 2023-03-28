@@ -42,8 +42,8 @@ namespace ManejoImpresoras.Servicios
 
         public async Task<Usuario> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken)
         {
-            //user.Id = await repositorioUsuarios.CrearUsuario(user);
-            return await repositorioUsuarios.BuscaUsuarioPorNombre(normalizedUserName);
+            var temp = await repositorioUsuarios.BuscaUsuarioPorNombre(normalizedUserName);
+            return temp;
         }
 
         public Task<string> GetEmailAsync(Usuario user, CancellationToken cancellationToken)
@@ -76,9 +76,10 @@ namespace ManejoImpresoras.Servicios
             return await Task.FromResult<string>(user.Id.ToString());
         }
 
-        public Task<string> GetUserNameAsync(Usuario user, CancellationToken cancellationToken)
+        public async Task<string> GetUserNameAsync(Usuario user, CancellationToken cancellationToken)
         {
-            return Task.FromResult<string>(user.Nombres);
+            var temp = await Task.FromResult(user.Nombres);
+            return temp; // FromResult<>
         }
 
         public Task<bool> HasPasswordAsync(Usuario user, CancellationToken cancellationToken)

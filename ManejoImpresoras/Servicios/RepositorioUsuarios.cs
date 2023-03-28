@@ -7,6 +7,7 @@ namespace ManejoImpresoras.Servicios
     public interface IRepositorioUsuarios
     {
         Task<Usuario> BuscaUsuarioPorEmail(string email);
+        Task<Usuario> BuscaUsuarioPorNombre(string nombre);
         Task<int> CrearUsuario(Usuario usuario);
     }
     public class RepositorioUsuarios : IRepositorioUsuarios
@@ -34,6 +35,13 @@ namespace ManejoImpresoras.Servicios
             using var connection = new SqlConnection(connectionString);
             var query = @"Select * from usuario where Email = @Email;";
             return await connection.QuerySingleOrDefaultAsync<Usuario>(query, new { email });
+        }
+
+        public async Task<Usuario> BuscaUsuarioPorNombre(String nombre)
+        {
+            using var connection = new SqlConnection(connectionString);
+            var query = @"Select * from usuario where Nombres = @Nombres;";
+            return await connection.QuerySingleOrDefaultAsync<Usuario>(query, new { nombre });
         }
     }
 }

@@ -4,7 +4,7 @@ namespace ManejoImpresoras.Entidades
 {
     public class EstadoImpresora
     {
-        public int IdEstado { get; set; }
+        public int Id { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es requerido")]
         [StringLength(50)]

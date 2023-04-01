@@ -43,7 +43,7 @@ namespace ManejoImpresoras.Controllers
 
             if (resultado.Succeeded)
             {
-                return RedirectToAction("Index", "Transacciones");
+                return RedirectToAction("Index", "Instituciones");
             }
             else 
             {

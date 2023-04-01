@@ -22,8 +22,8 @@ namespace ManejoImpresoras.Servicios
         public async Task<int> CrearUsuario(Usuario usuario) 
         {
             using var connection = new SqlConnection(connectionString);
-            var query = @"insert into usuario (Id, Nombres, Apellidos, NumeroRegistro, Email, PasswordHash, IDInstitucion)
-                        values (@Id, @Nombres, @Apellidos, @NumeroRegistro, @Email, @PasswordHash, @IDInstitucion); 
+            var query = @"insert into usuario (Nombres, Apellidos, NumeroRegistro, Email, PasswordHash, IDInstitucion)
+                        values (@Nombres, @Apellidos, @NumeroRegistro, @Email, @PasswordHash, @IDInstitucion); 
                         Select SCOPE_IDENTITY();";
             var id = await connection.QuerySingleAsync<int>(query, usuario);
 

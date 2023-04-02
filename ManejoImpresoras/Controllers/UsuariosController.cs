@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ManejoImpresoras.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,14 +8,19 @@ namespace ManejoImpresoras.Controllers
 {
     public class UsuariosController : Controller
     {
-        private readonly UserManager<Usuario> userManager;
+        private readonly UserManager<IdentityUser> userManager;
+        private readonly SignInManager<IdentityUser> signInManager;
         private readonly IMapper mapper;
 
-        public UsuariosController(UserManager<Usuario> userManager, IMapper mapper)
+        public UsuariosController(UserManager<IdentityUser> userManager,
+            SignInManager<IdentityUser> signInManager, IMapper mapper)
         {
             this.userManager = userManager;
+            this.signInManager = signInManager;
             this.mapper = mapper;
-        }   
+        }
+
+        [AllowAnonymous]
         public IActionResult Registro()
         {
             return View();
@@ -22,16 +28,16 @@ namespace ManejoImpresoras.Controllers
    
 
     [HttpPost]
-    public async Task<IActionResult> Registro(RegistroViewModel modelo) 
+    [AllowAnonymous]
+        public async Task<IActionResult> Registro(RegistroViewModel modelo) 
     {
         if (!ModelState.IsValid) 
         {
             return View(modelo);
         }
 
-        var modelol = new { modelo };
         //var usuariol = mapper.Map<RegistroViewModel>(modelol);
-        var usuario = new Usuario() {   Email = modelo.Email,
+        var usuariovy = new Usuario() {   Email = modelo.Email,
                                         Nombres = modelo.Nombres,   
                                         Apellidos = modelo.Apellidos,
                                         NumeroRegistro = modelo.NumeroRegistro, 
@@ -39,11 +45,17 @@ namespace ManejoImpresoras.Controllers
                                         IdInstitucion = modelo.IdInstitucion
         };
 
-        var resultado =  await userManager.CreateAsync(usuario, password : modelo.Password);
+            var usuario = new IdentityUser()
+            {
+                Email = modelo.Email,
+                UserName = modelo.Nombres
+            };
+                var resultado =  await userManager.CreateAsync(usuario, password : modelo.Password);
 
             if (resultado.Succeeded)
             {
-                return RedirectToAction("Index", "Instituciones");
+                await signInManager.SignInAsync(usuario, isPersistent: true);
+                return RedirectToAction("Index", "Instituciones"); // Home (Instituciones)
             }
             else 
             {

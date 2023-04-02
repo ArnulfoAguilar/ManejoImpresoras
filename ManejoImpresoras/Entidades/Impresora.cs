@@ -12,7 +12,7 @@ namespace ManejoImpresoras.Entidades
         public string Marca { get; set; }
         [StringLength(50)]  
         public string Modelo { get; set; } 
-        public int IdEstado { get; set; }
+        public int IdEstado { get; set; }  //Deberia ser IdEstadoImpresora 
         public EstadoImpresora EstadoImpresora { get; set; }
         public int EsdeColor { get; set;}
         [StringLength(15)]

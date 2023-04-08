@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - ManejoImpresoras</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    @* Linia Adicional para manejo de datatables.net *@
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ManejoImpresoras.styles.css" asp-append-version="true" />
 </head>
@@ -25,7 +29,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="Instituciones" asp-action="Index">Instituciones</a>
                         </li>
-
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Impresoras" asp-action="Index">Impresoras</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -44,6 +50,10 @@
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    @* Linia Adicional para manejo de datatables.net *@
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

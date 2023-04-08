@@ -1,4 +1,5 @@
-﻿using ManejoImpresoras.Models;
+﻿using ManejoImpresoras.Entidades;
+using ManejoImpresoras.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
@@ -19,6 +20,25 @@ namespace ManejoImpresoras.Controllers
         {
             var temp = await _contexto.Impresoras.ToListAsync();    
             return View(temp);
+        }
+
+        [HttpGet]
+        public IActionResult Crear()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Crear(Impresora impresora)
+        {
+            if (ModelState.IsValid)
+            {
+                _contexto.Impresoras.Add(impresora); 
+                await _contexto.SaveChangesAsync(); 
+                return RedirectToAction("Index");   
+            }
+        
+            return View();
         }
 
         public IActionResult NoEncontrado()

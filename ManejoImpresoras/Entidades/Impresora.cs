@@ -23,7 +23,7 @@ namespace ManejoImpresoras.Entidades
         public int EsdeColor { get; set;}
 
         [StringLength(15)]
-        public int DireccionIP { get; set; }
+        public string DireccionIP { get; set; }
         [StringLength(150)]
         public string Caracteristicas { get; set; }
     }

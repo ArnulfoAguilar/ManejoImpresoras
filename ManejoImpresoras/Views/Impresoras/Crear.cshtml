@@ -1,0 +1,46 @@
+﻿@using ManejoImpresoras.Entidades;
+@model Impresora 
+
+@{
+    ViewData["Title"] = "Crear nueva Impresora";
+}
+
+
+<h1>Crear Impresora</h1>
+<h5>Se refiere a las Impresora utilizadas en la institución </h5>
+
+    <form asp-action="Crear" asp-controller="Impresoras" method="post">
+    <div class="mb-3">
+        <label asp-for="CodigoActivoFijo" class="form-label">Codigo Activo Fijo</label>
+        <input type="text" asp-for="CodigoActivoFijo" class="form-control" placeholder="Ingrese el Codigo Activo Fijo" />
+        <span asp-validation-for="CodigoActivoFijo" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Marca" class="form-label">Marca</label>
+        <input type="text" asp-for="Marca" class="form-control" placeholder="Ingrese la Marca"/>
+        <span asp-validation-for="Marca" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Modelo" class="form-label">Modelo</label>
+        <input type="text" asp-for="Modelo" class="form-control" placeholder="Ingrese el Modelo" />
+        <span asp-validation-for="Modelo" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="DireccionIP" class="form-label">Direccion IP</label>
+        <input type="text" asp-for="DireccionIP" class="form-control" placeholder="Ingrese la Dirección IP" />
+        <span asp-validation-for="DireccionIP" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Caracteristicas" class="form-label">Caracteristicas</label>
+        <input type="text" asp-for="Caracteristicas" class="form-control" placeholder="Ingrese las Caracteristicas" />
+        <span asp-validation-for="Caracteristicas" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Enviar</button>
+    <a class="btn btn-secondary" asp-action="Index">Cancelar</a>
+
+</form>

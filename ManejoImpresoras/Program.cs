@@ -22,6 +22,9 @@ builder.Services.AddControllersWithViews(opciones =>
 //  Add services my (VY) DbContext ***************************************  
 builder.Services.AddDbContext<ApplicationDbContext>
     (opciones => opciones.UseSqlServer("name=DefaultConnection"));
+
+ //(opciones => opciones.UseSqlServer(builder.Configuration.GetConnectionString("name=DefaultConnection")));
+
 //Add services  Authenticatios (VY)
 builder.Services.AddAuthentication();
 //Aqui defino (VY )cual es la clase que se utilizara para authenticar "IdentityUser" es por Defecto

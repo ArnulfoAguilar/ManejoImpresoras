@@ -113,7 +113,6 @@ namespace ManejoImpresoras.Controllers
         }
 
         [HttpGet]
-
         public async Task<IActionResult> VerificarExisteInstitucion(string nombre)
         {
             var yaExisteInstitucion = await repositorioInstituciones.Existe(nombre);

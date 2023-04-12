@@ -12,10 +12,14 @@ namespace ManejoImpresoras.Servicios
             this.repositorioUsuarios = repositorioUsuarios;
         }
 
+
         public async Task<IdentityResult> CreateAsync(Usuario user, CancellationToken cancellationToken)
         {
+            throw new NotImplementedException();
+/*
             user.Id = await repositorioUsuarios.CrearUsuario(user);
             return IdentityResult.Success;  
+*/
         }
 
         public Task<IdentityResult> DeleteAsync(Usuario user, CancellationToken cancellationToken)
@@ -25,6 +29,7 @@ namespace ManejoImpresoras.Servicios
 
         public void Dispose()
         {
+            throw new NotImplementedException();
             //return IdentityResult.Success;
             //throw new NotImplementedException();
         }

@@ -1,14 +1,22 @@
-﻿namespace ManejoImpresoras.Models
-{
-    public class Usuario
-    {
-        public int Id { get; set; }
-        public string Nombres { get; set; }
-        public string Apellidos { get; set; }
-        public string NumeroRegistro { get; set; }
-        public string Email  { get; set; }
-        public string PasswordHash { get; set; }
-        public int IdInstitucion { get; set; }
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
+namespace ManejoImpresoras.Models
+{
+    public class Usuario : IdentityUser 
+    {
+        [Required(ErrorMessage = "El campo {0} es requerido")]
+        [StringLength(50)]
+        public string Nombres { get; set; }
+        [Required(ErrorMessage = "El campo {0} es requerido")]
+        [StringLength(50)]
+        public string Apellidos { get; set; }
+        [Required(ErrorMessage = "El campo {0} es requerido")]
+        [StringLength(9)]
+        [Display(Name="Número de Registro")]
+        public string NumeroRegistro { get; set; }
+        [Display(Name = "Institución")]
+        [Required(ErrorMessage = "El campo {0} es requerido")]
+        public int IdInstitucion { get; set; }
     }
 }

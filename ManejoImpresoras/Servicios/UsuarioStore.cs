@@ -31,7 +31,7 @@ namespace ManejoImpresoras.Servicios
         {
             throw new NotImplementedException();
             //return IdentityResult.Success;
-            //throw new NotImplementedException();
+          
         }
 
         public async Task<Usuario> FindByEmailAsync(string email, CancellationToken cancellationToken)

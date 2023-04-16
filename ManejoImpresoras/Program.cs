@@ -11,7 +11,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Only user authentication 
 var politicaUsuariosAutenticados = new AuthorizationPolicyBuilder()
-    .RequireAuthenticatedUser().Build(); 
+    .RequireAuthenticatedUser()
+    .Build(); 
 
 // Add services to the container.
 builder.Services.AddControllersWithViews(opciones =>
@@ -22,15 +23,17 @@ builder.Services.AddControllersWithViews(opciones =>
 //  Add services my (VY) DbContext ***************************************  
 builder.Services.AddDbContext<ApplicationDbContext>
     (opciones => opciones.UseSqlServer("name=DefaultConnection"));
-
  //(opciones => opciones.UseSqlServer(builder.Configuration.GetConnectionString("name=DefaultConnection")));
 
 //Add services  Authenticatios (VY)
 builder.Services.AddAuthentication();
+
 //Aqui defino (VY )cual es la clase que se utilizara para authenticar "IdentityUser" es por Defecto
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(opciones => 
 {opciones.SignIn.RequireConfirmedAccount = false;
 }).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+
+
 //Para no utilizar las vistas utilizadas por defecto, Defino entos las URL  
 builder.Services.PostConfigure<CookieAuthenticationOptions>(IdentityConstants.ApplicationScheme,
     opciones =>

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ManejoImpresoras.Models;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -25,48 +26,86 @@ namespace ManejoImpresoras.Controllers
         {
             return View();
         }
-   
 
-    [HttpPost]
-    [AllowAnonymous]
-        public async Task<IActionResult> Registro(RegistroViewModel modelo) 
-    {
-        if (!ModelState.IsValid) 
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> Registro(RegistroViewModel modelo)
         {
-            return View(modelo);
-        }
+            if (!ModelState.IsValid)
+            {
+                return View(modelo);
+            }
 
-        //var usuariol = mapper.Map<RegistroViewModel>(modelol);
-        var usuariovy = new Usuario() {   Email = modelo.Email,
-                                        Nombres = modelo.Nombres,   
-                                        Apellidos = modelo.Apellidos,
-                                        NumeroRegistro = modelo.NumeroRegistro, 
-                                        PasswordHash = modelo.Password,
-                                        IdInstitucion = modelo.IdInstitucion
-        };
-
-            var usuario = new IdentityUser()
+            //var usuariol = mapper.Map<RegistroViewModel>(modelol);
+            var usuario = new Usuario()
             {
                 Email = modelo.Email,
-                UserName = modelo.Nombres
+                Nombres = modelo.Nombres,
+                Apellidos = modelo.Apellidos,
+                NumeroRegistro = modelo.NumeroRegistro,
+                PasswordHash = modelo.Password,
+                IdInstitucion = modelo.IdInstitucion
             };
-                var resultado =  await userManager.CreateAsync(usuario, password : modelo.Password);
+
+            //var usuario = new IdentityUser()
+            //{
+            //    Email = modelo.Email,
+            //    UserName = modelo.Nombres
+            //};
+
+            var resultado = await userManager.CreateAsync(usuario, password: modelo.Password);
 
             if (resultado.Succeeded)
             {
                 await signInManager.SignInAsync(usuario, isPersistent: true);
                 return RedirectToAction("Index", "Instituciones"); // Home (Instituciones)
             }
-            else 
+            else
             {
-                foreach (var error in resultado.Errors) 
+                foreach (var error in resultado.Errors)
                 {
                     ModelState.AddModelError(String.Empty, error.Description);
                 }
 
                 return View(modelo);
-            }       
-    }
+            }
+        }
 
+        [AllowAnonymous]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> Login(LoginViewModel modelo)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(modelo);
+            }
+
+
+            var resultado = await signInManager.PasswordSignInAsync(modelo.Email, modelo.Password,
+                                    modelo.Recuerdame, lockoutOnFailure: false);
+
+            if (resultado.Succeeded)
+            {
+                return RedirectToAction("Index", "Home"); // Home (Instituciones)
+            }
+            else
+            {
+                ModelState.AddModelError(String.Empty, "Nombre de usuario o Password incorrecto");
+                return View(modelo);
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(IdentityConstants.ApplicationScheme);
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ManejoImpresoras
 {
-    public class ApplicationDbContext : IdentityDbContext   
+    public class ApplicationDbContext : DbContext    // IdentityDbContext   
 
     {
         public ApplicationDbContext(DbContextOptions options) : base(options)

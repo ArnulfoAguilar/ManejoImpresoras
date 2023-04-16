@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ManejoImpresoras.Models
 {
-    public class Usuario : IdentityUser 
+    public class Usuario   : IdentityUser 
     {
         [Required(ErrorMessage = "El campo {0} es requerido")]
         [StringLength(50)]
